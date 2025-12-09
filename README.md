@@ -57,7 +57,7 @@ medical_dicom_viewer/
 ├── dicom_viewer_series.py # Hauptprogramm (CT/MR Series Viewer)
 ├── dicom_viewer.py # Einfache Version (Optional)
 ├── README.md # Projektdokumentation
-└── dicom_samples/ # Beispiel-DICOMs (nicht im Repo!)
+└── dicom_samples/ # Beispiel-DICOMs (nicht im Repo!).
 
 
 
