@@ -12,10 +12,8 @@ from matplotlib.figure import Figure
 
 import numpy as np
 
-# =========================
-# متغيّرات عالمية
-# =========================
-series_slices = []   # قائمة من (dataset, pixel_array)
+
+series_slices = []  
 current_index = 0
 
 root = None
@@ -28,29 +26,24 @@ window_level_slider = None
 window_width_slider = None
 
 
-# =========================
-# دالة Window Level / Width
-# =========================
-def apply_window(pixel_array, window_level, window_width):
-    """
-    تطبيق Window Level / Window Width على الصورة.
-    الفكرة:
-    - قص القيم خارج المجال [WL - WW/2, WL + WW/2]
-    - تحويلها إلى تدرج رمادي 0–255
-    """
-    if window_width <= 0:
-        window_width = 1  # تجنب القسمة على صفر
 
-    # تحويل إلى float لسهولة العمليات
+
+def apply_window(pixel_array, window_level, window_width):
+
+
+    if window_width <= 0:
+        window_width = 1  
+        
+
     img = pixel_array.astype(np.float32)
 
     lower = window_level - (window_width / 2.0)
     upper = window_level + (window_width / 2.0)
 
-    # قص القيم خارج المجال
+
     img = np.clip(img, lower, upper)
 
-    # تحويل إلى 0–1
+
     img = (img - lower) / (upper - lower)
     img = img * 255.0
     img = np.clip(img, 0, 255)
@@ -58,13 +51,9 @@ def apply_window(pixel_array, window_level, window_width):
     return img.astype(np.uint8)
 
 
-# =========================
-# تحميل ملف DICOM وبناء السلسلة
-# =========================
+
 def load_dicom_file():
-    """
-    اختيار ملف DICOM واحد، ثم بناء سلسلة (Series) كاملة من نفس المجلد.
-    """
+    
     global series_slices, current_index
 
     file_path = filedialog.askopenfilename(
@@ -97,9 +86,8 @@ def load_dicom_file():
 
 
 def build_series_from_folder(folder, reference_ds):
-    """
-    قراءة كل ملفات .dcm في المجلد نفسه، واختيار تلك التي تنتمي لنفس Study/Series.
-    """
+   
+   
     series = []
 
     ref_study_uid = getattr(reference_ds, "StudyInstanceUID", None)
@@ -129,7 +117,7 @@ def build_series_from_folder(folder, reference_ds):
 
         series.append((ds, pixel_array))
 
-    # ترتيب السلسلة حسب InstanceNumber أو Z-Position
+
     def sort_key(item):
         ds, _ = item
         inst = getattr(ds, "InstanceNumber", None)
@@ -145,9 +133,8 @@ def build_series_from_folder(folder, reference_ds):
 
 
 def find_index_of_ds_in_series(series, reference_ds):
-    """
-    إيجاد index للصورة التي اختارها المستخدم ضمن السلسلة الكاملة (إن أمكن).
-    """
+    
+    
     ref_sop = getattr(reference_ds, "SOPInstanceUID", None)
     if ref_sop is None:
         return 0
@@ -158,42 +145,38 @@ def find_index_of_ds_in_series(series, reference_ds):
     return 0
 
 
-# =========================
-# عرض الصورة الحالية
-# =========================
+
 def show_current_slice():
-    """
-    عرض الصورة الحالية + تحديث الميتاداتا + تسمية الـ Slice
-    """
+  
+  
     global series_slices, current_index, ax, canvas
 
     if not series_slices:
         return
 
-    # ضبط حدود الـ index
+
     current_index = max(0, min(current_index, len(series_slices) - 1))
 
     ds, pixel_array = series_slices[current_index]
 
-    # تحديث الميتاداتا
+
     update_metadata_view(ds)
 
-    # الحصول على قيم WL/WW من الـ Sliders
+
     if window_level_slider is not None and window_width_slider is not None:
         wl = window_level_slider.get()
         ww = window_width_slider.get()
     else:
-        # قيم افتراضية إذا لم تكن الـ sliders جاهزة
+
         wl, ww = 40, 400
 
-    # تطبيق Windowing
     try:
         windowed_img = apply_window(pixel_array, wl, ww)
     except Exception:
-        # في حالة حدوث مشكلة نعرض الصورة الأصلية
+
         windowed_img = pixel_array
 
-    # رسم الصورة
+
     ax.clear()
     ax.imshow(windowed_img, cmap="gray")
     ax.axis("off")
@@ -211,18 +194,15 @@ def show_current_slice():
 
     canvas.draw()
 
-    # تحديث Label الخاص بالـ Slice
+
     if slice_label is not None:
         slice_label.config(text=f"Bild {current_index + 1} / {len(series_slices)}")
 
 
-# =========================
-# الميتاداتا
-# =========================
+
 def update_metadata_view(ds):
-    """
-    عرض بعض الحقول المهمة من الـ DICOM Header في Text-Widget
-    """
+   
+   
     metadata_text.delete("1.0", tk.END)
 
     def safe_get(tag, default="—"):
@@ -253,9 +233,8 @@ def update_metadata_view(ds):
     metadata_text.insert(tk.END, "\n".join(lines))
 
 
-# =========================
-# التنقل بين الصور
-# =========================
+
+
 def show_next_slice(event=None):
     global current_index
     if not series_slices:
@@ -276,9 +255,8 @@ def show_prev_slice(event=None):
     show_current_slice()
 
 
-# =========================
-# إعداد الـ GUI
-# =========================
+
+
 def setup_gui():
     global root, metadata_text, canvas, ax, slice_label
     global window_level_slider, window_width_slider
@@ -287,7 +265,7 @@ def setup_gui():
     root.title("Mini DICOM Series Viewer – WL/WW – Medical Informatics Projekt")
     root.geometry("1100x650")
 
-    # القائمة العلوية
+
     menubar = tk.Menu(root)
     file_menu = tk.Menu(menubar, tearoff=0)
     file_menu.add_command(label="DICOM öffnen...", command=load_dicom_file)
@@ -296,11 +274,11 @@ def setup_gui():
     menubar.add_cascade(label="Datei", menu=file_menu)
     root.config(menu=menubar)
 
-    # إطار رئيسي
+
     main_frame = tk.Frame(root)
     main_frame.pack(fill=tk.BOTH, expand=True)
 
-    # يسار: الميتاداتا
+
     left_frame = tk.Frame(main_frame)
     left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=False, padx=10, pady=10)
 
@@ -311,11 +289,11 @@ def setup_gui():
     metadata_text.pack(fill=tk.BOTH, expand=True)
     metadata_text.insert(tk.END, "Bitte eine DICOM-Serie über 'Datei -> DICOM öffnen...' auswählen.\n")
 
-    # يمين: الصورة + التحكم
+
     right_frame = tk.Frame(main_frame)
     right_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-    # شكل matplotlib
+
     fig = Figure(figsize=(5, 5))
     ax = fig.add_subplot(111)
     ax.axis("off")
@@ -324,7 +302,7 @@ def setup_gui():
     canvas_widget = canvas.get_tk_widget()
     canvas_widget.pack(fill=tk.BOTH, expand=True)
 
-    # التحكم بـ Window Level / Width
+
     wlww_frame = tk.Frame(right_frame)
     wlww_frame.pack(fill=tk.X, pady=5)
 
@@ -336,7 +314,7 @@ def setup_gui():
         orient=tk.HORIZONTAL,
         command=lambda x: show_current_slice()
     )
-    window_level_slider.set(40)  # قيمة أولية نموذجية لـ CT Thorax
+    window_level_slider.set(40)  
     window_level_slider.pack(fill=tk.X)
 
     tk.Label(wlww_frame, text="Window Width (WW)").pack(anchor="w")
@@ -347,10 +325,10 @@ def setup_gui():
         orient=tk.HORIZONTAL,
         command=lambda x: show_current_slice()
     )
-    window_width_slider.set(400)  # قيمة أولية نموذجية
+    window_width_slider.set(400)  
     window_width_slider.pack(fill=tk.X)
 
-    # أزرار التنقّل
+   
     nav_frame = tk.Frame(right_frame)
     nav_frame.pack(fill=tk.X, pady=5)
 
@@ -363,16 +341,13 @@ def setup_gui():
     btn_next = tk.Button(nav_frame, text="Nächstes Bild ▶", command=show_next_slice)
     btn_next.pack(side=tk.LEFT, padx=5)
 
-    # ربط الأسهم من لوحة المفاتيح
+
     root.bind("<Left>", show_prev_slice)
     root.bind("<Right>", show_next_slice)
 
     return root
 
 
-# =========================
-# نقطة البدء
-# =========================
 if __name__ == "__main__":
     root = setup_gui()
     root.mainloop()
