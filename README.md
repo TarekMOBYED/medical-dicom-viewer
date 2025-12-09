@@ -1,9 +1,9 @@
-Mini DICOM Series Viewer (Mini PACS Viewer)
+1 - Mini DICOM Series Viewer (Mini PACS Viewer)
 Medizinische Informatik – Python Projekt
 
 Dieses Projekt ist ein eigenständig entwickelter DICOM Viewer, der grundlegende Funktionen eines PACS-Systems simuliert. Er wurde im Rahmen meiner Vertiefung in der Medizinischen Informatik erstellt und dient dem praktischen Verständnis von radiologischen Workflows, Bildserien (CT/MR) und dem DICOM-Standard.
 
-Hauptfunktionen
+ Hauptfunktionen
 
 —Laden einzelner DICOM-Dateien
 Der Viewer kann einzelne DICOM-Bilder (z. B. CR, XC, OT) laden und deren Metadaten anzeigen.
@@ -34,16 +34,16 @@ Anzeige relevanter DICOM-Felder, z. B.:
 - PixelSpacing  
 - SeriesDescription  
 
- Technische Umsetzung
+ 3. Technische Umsetzung
 
-—Technologien:
+3.1Technologien:
 - Python 3 
 - pydicom**
 - Tkinter (GUI)
 - matplotlib
 - NumPy
 
-—Architektur:
+3.2 Architektur:
 - Laden des ersten DICOM-Bildes  
 - Scannen des Verzeichnisses nach zugehörigen Serien  
 - Sortierung der Series  
@@ -51,7 +51,7 @@ Anzeige relevanter DICOM-Felder, z. B.:
 - Rendering des Bildes im matplotlib-Canvas  
 
 
- Projektstruktur
+4. Projektstruktur
 medical_dicom_viewer/
 │
 ├── dicom_viewer_series.py # Hauptprogramm (CT/MR Series Viewer)
@@ -65,13 +65,23 @@ medical_dicom_viewer/
 ⚠️ Aus Datenschutzgründen sollten keine echten Patientendaten hochgeladen werden.
 
 
+5. Screenshots
 
- Beispielbilder (Screenshots)
+Nachfolgend ein Beispielbild der grafischen Benutzeroberfläche des Mini DICOM Series Viewers.  
+Es zeigt die wichtigsten Komponenten eines PACS-ähnlichen Workflows:
 
-(Hier können später Screenshots des Viewers eingefügt werden.)
+- Anzeige eines CT-/MR-Slices  
+- Metadatenbereich (PatientID, Modality, StudyDate usw.)  
+- Window Level (WL) und Window Width (WW) Steuerung  
+- Navigation durch die Bildserie (Vorheriges/Nächstes Bild)  
 
 
-Lernziele
+### Beispielansicht
+
+![DICOM Viewer Screenshot](./assets/viewer_screenshot.png)
+
+
+6. Lernziele
 
 Durch dieses Projekt wurden folgende Kompetenzen ausgebaut:
 
@@ -83,7 +93,7 @@ Durch dieses Projekt wurden folgende Kompetenzen ausgebaut:
 - Anwendung medizinisch relevanter Konzepte wie  
 (Slice Thickness), (Pixel Spacing), (Instance Number) 
 
- Relevanz für die medizinische Informatik
+7. Relevanz für die medizinische Informatik
 
 Das Projekt simuliert wesentliche Funktionen eines PACS-Systems und demonstriert Wissen in:
 
@@ -100,7 +110,7 @@ Es eignet sich ideal als Portfolio-Projekt für:
 - Medical Software Development  
 - Radiologie-Informatik  
 
-Kontakt
+8. Kontakt
 Bei Interesse an meinem Projekt oder meiner Arbeit im Bereich der medizinischen Informatik freue ich mich über eine Nachricht.
 
 
