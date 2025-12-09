@@ -1,9 +1,9 @@
-1 - Mini DICOM Series Viewer (Mini PACS Viewer)
+1. Mini DICOM Series Viewer (Mini PACS Viewer)
 Medizinische Informatik – Python Projekt
 
 Dieses Projekt ist ein eigenständig entwickelter DICOM Viewer, der grundlegende Funktionen eines PACS-Systems simuliert. Er wurde im Rahmen meiner Vertiefung in der Medizinischen Informatik erstellt und dient dem praktischen Verständnis von radiologischen Workflows, Bildserien (CT/MR) und dem DICOM-Standard.
 
- Hauptfunktionen
+ 2. Hauptfunktionen
 
 —Laden einzelner DICOM-Dateien
 Der Viewer kann einzelne DICOM-Bilder (z. B. CR, XC, OT) laden und deren Metadaten anzeigen.
@@ -76,7 +76,6 @@ Es zeigt die wichtigsten Komponenten eines PACS-ähnlichen Workflows:
 - Navigation durch die Bildserie (Vorheriges/Nächstes Bild)  
 
 
-### Beispielansicht
 
 ![DICOM Viewer Screenshot](./assets/viewer_screenshot.png)
 
