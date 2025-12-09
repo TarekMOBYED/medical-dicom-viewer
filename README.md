@@ -1,32 +1,33 @@
-1. Mini DICOM Series Viewer (Mini PACS Viewer)
-Medizinische Informatik – Python Projekt
+# Mini DICOM Series Viewer (Mini PACS Viewer)
+### Medizinische Informatik – Python Projekt
 
-Dieses Projekt ist ein eigenständig entwickelter DICOM Viewer, der grundlegende Funktionen eines PACS-Systems simuliert. Er wurde im Rahmen meiner Vertiefung in der Medizinischen Informatik erstellt und dient dem praktischen Verständnis von radiologischen Workflows, Bildserien (CT/MR) und dem DICOM-Standard.
+Dieses Projekt ist ein eigenständig entwickelter DICOM Viewer, der grundlegende Funktionen eines PACS-Systems simuliert. Es dient dem praktischen Verständnis von radiologischen Workflows, Bildserien (CT/MR) und dem DICOM-Standard.
 
- 2. Hauptfunktionen
+---
 
-—Laden einzelner DICOM-Dateien
+## 1. Hauptfunktionen
+
+### • Laden einzelner DICOM-Dateien  
 Der Viewer kann einzelne DICOM-Bilder (z. B. CR, XC, OT) laden und deren Metadaten anzeigen.
 
-—Automatisches Erkennen kompletter CT-/MR-Serien
-- Erkennung anhand von **StudyInstanceUID** und **SeriesInstanceUID**
-- Sortierung mit **InstanceNumber** oder **ImagePositionPatient**
-- Typischer Workflow wie in PACS-Systemen
+### • Automatisches Erkennen kompletter CT-/MR-Serien  
+- Erkennung anhand von **StudyInstanceUID** und **SeriesInstanceUID**  
+- Sortierung mittels **InstanceNumber** oder **ImagePositionPatient**  
+- Nachbildung eines typischen PACS-Workflows  
 
-—Navigation zwischen Bildern
-- Buttons: **Vorheriges Bild / Nächstes Bild**
-- Tastatur: **← → Pfeiltasten**
-- Anzeige der aktuellen Slice-Position im Format *Bild X / N*
+### • Navigation zwischen Bildern  
+- Buttons: *Vorheriges Bild / Nächstes Bild*  
+- Tastatursteuerung: ← →  
+- Anzeige der aktuellen Slice-Position (*Bild X / N*)  
 
-—Window Level & Window Width (WL/WW)
-Interaktive Anpassung von:
-- **Kontrast**
-- **Helligkeit**
+### • Window Level & Window Width (WL/WW)  
+Interaktive Anpassung von:  
+- **Kontrast (WL)**  
+- **Helligkeit (WW)**  
+mittels zwei Slidern – wie in professionellen PACS-Viewern.
 
-Mittels zwei Slidern — wie in professionellen PACS-Viewern.
-
-—Anzeige medizinischer Metadaten
-Anzeige relevanter DICOM-Felder, z. B.:
+### • Anzeige medizinischer Metadaten  
+Beispielsweise:  
 - PatientID  
 - StudyDate  
 - Modality  
@@ -34,67 +35,71 @@ Anzeige relevanter DICOM-Felder, z. B.:
 - PixelSpacing  
 - SeriesDescription  
 
- 3. Technische Umsetzung
+---
 
-3.1Technologien:
-- Python 3 
-- pydicom**
-- Tkinter (GUI)
-- matplotlib
-- NumPy
+## 2. Technische Umsetzung
 
-3.2 Architektur:
+### 2.1 Technologien
+- Python 3  
+- pydicom  
+- Tkinter (GUI)  
+- matplotlib  
+- NumPy  
+
+### 2.2 Architektur
 - Laden des ersten DICOM-Bildes  
 - Scannen des Verzeichnisses nach zugehörigen Serien  
-- Sortierung der Series  
+- Sortierung der Slices  
 - Aktualisierung der GUI bei Navigation oder WL/WW-Änderung  
 - Rendering des Bildes im matplotlib-Canvas  
 
+---
 
-4. Projektstruktur
+## 3. Projektstruktur
+
 medical_dicom_viewer/
 │
 ├── dicom_viewer_series.py # Hauptprogramm (CT/MR Series Viewer)
 ├── dicom_viewer.py # Einfache Version (Optional)
 ├── README.md # Projektdokumentation
-└── dicom_samples/ # Beispiel-DICOMs (nicht im Repo!).
+└── dicom_samples/ # Beispiel-DICOMs (nicht im Repo!)
 
 
+⚠️ *Aus Datenschutzgründen dürfen keine echten Patientendaten hochgeladen werden.*
 
+---
 
-⚠️ Aus Datenschutzgründen sollten keine echten Patientendaten hochgeladen werden.
-
-
-5. Screenshots
+## 4. Screenshots
 
 Nachfolgend ein Beispielbild der grafischen Benutzeroberfläche des Mini DICOM Series Viewers.  
-Es zeigt die wichtigsten Komponenten eines PACS-ähnlichen Workflows:
+Es zeigt zentrale Komponenten eines PACS-ähnlichen Workflows:
 
-- Anzeige eines CT-/MR-Slices  
+- Darstellung eines CT-/MR-Slices  
 - Metadatenbereich (PatientID, Modality, StudyDate usw.)  
-- Window Level (WL) und Window Width (WW) Steuerung  
-- Navigation durch die Bildserie (Vorheriges/Nächstes Bild)  
-
-
+- Window-Level- und Window-Width-Slider  
+- Navigation durch die Bildserie  
 
 ![DICOM Viewer Screenshot](./assets/viewer_screenshot.png)
 
+---
 
-6. Lernziele
+## 5. Lernziele
 
-Durch dieses Projekt wurden folgende Kompetenzen ausgebaut:
+Durch dieses Projekt wurden folgende Kompetenzen gestärkt:
 
-- Verständnis des (DICOM-Standards) und radiologischer Workflows  
-- Arbeiten mit (DICOM-Metadaten) und Bildserien  
-- Implementierung von (Windowing-Algorithmen)  
-- praktische GUI-Entwicklung in Python  
+- Verständnis des **DICOM-Standards** und radiologischer Workflows  
+- Arbeiten mit **DICOM-Metadaten** und Bildserien  
+- Implementierung von **Windowing-Algorithmen**  
+- Entwicklung grafischer Benutzeroberflächen in Python  
 - Algorithmische Sortierung von CT-/MR-Slices  
 - Anwendung medizinisch relevanter Konzepte wie  
-(Slice Thickness), (Pixel Spacing), (Instance Number) 
+  *Slice Thickness*, *Pixel Spacing*, *Instance Number*  
 
-7. Relevanz für die medizinische Informatik
+---
 
-Das Projekt simuliert wesentliche Funktionen eines PACS-Systems und demonstriert Wissen in:
+## 6. Relevanz für die medizinische Informatik
+
+Das Projekt simuliert wesentliche Funktionen eines PACS-Systems und demonstriert Kenntnisse in:
 
 - Medical Imaging  
 - Health IT / Radiologie-Systeme  
@@ -102,14 +107,16 @@ Das Projekt simuliert wesentliche Funktionen eines PACS-Systems und demonstriert
 - Bildverarbeitung  
 - Softwareentwicklung im Gesundheitswesen  
 
-Es eignet sich ideal als Portfolio-Projekt für:
+Es eignet sich hervorragend als Portfolio-Projekt für:
 
-- Werkstudent/in Gesundheit IT  
-- PACS/RIS Support  
+- Werkstudent/in im Bereich Gesundheits-IT  
+- PACS/RIS-Support  
 - Medical Software Development  
 - Radiologie-Informatik  
 
-8. Kontakt
-Bei Interesse an meinem Projekt oder meiner Arbeit im Bereich der medizinischen Informatik freue ich mich über eine Nachricht.
+---
 
+## 7. Kontakt
+
+Bei Interesse an meinem Projekt oder meiner Arbeit im Bereich der medizinischen Informatik freue ich mich über eine Nachricht.
 
